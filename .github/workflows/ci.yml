@@ -1,0 +1,58 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+    branches: [main]
+
+permissions:
+  contents: read
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+
+    steps:
+      # SHA-pinned for supply-chain integrity. To upgrade: run
+      #   curl -s https://api.github.com/repos/actions/<repo>/git/ref/tags/v7 | jq -r .object.sha
+      # and update the SHA + comment.
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+
+      - name: Set up Node
+        uses: actions/setup-node@820762786026740c76f36085b0efc47a31fe5020 # v7.0.0
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Install dependencies
+        run: npm ci
+
+      - name: Dependency vulnerability scan
+        # Blocking on high/critical advisories. Moderate and below
+        # remain advisory — Dependabot will PR them on its own
+        # schedule, no need to break CI on every transitive bump.
+        run: npm audit --audit-level=high
+
+      - name: Type-check
+        run: npx tsc --noEmit
+
+      - name: Lint
+        run: npm run lint
+
+      - name: Unit tests
+        run: npm test
+
+      - name: Validate AI tools catalog
+        run: npx tsx scripts/validate-ai-db.ts
+
+      - name: Build (with placeholder env)
+        run: npm run build
+        env:
+          NODE_OPTIONS: --max-old-space-size=4096
+          NEXT_PUBLIC_SUPABASE_URL: https://example.supabase.co
+          NEXT_PUBLIC_SUPABASE_ANON_KEY: placeholder
+          SUPABASE_SERVICE_ROLE_KEY: placeholder
+          APP_BASE_URL: https://guard.example
+          NEXT_PUBLIC_APP_URL: https://guard.example

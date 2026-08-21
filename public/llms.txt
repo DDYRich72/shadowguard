@@ -1,0 +1,30 @@
+# ShadowGuard
+
+> Apache-2.0 self-hosted AI discovery, governance, AgentGuard, MCP governance, evidence, and reporting.
+
+ShadowGuard is source code, not a hosted service. Installation operators provide and fund their own application hosting, Supabase stack, provider credentials, storage, backups, monitoring, and optional integrations. No support or maintenance SLA is provided.
+
+## Capabilities
+
+- Optional Google Workspace and Microsoft 365 AI-related application discovery.
+- Manual and CSV AI System inventory.
+- Risk assessments, controls, evidence, remediation, review, and governance reports.
+- AgentGuard metadata-only activity ingest, policy decisions, reviews, source keys, signed HTTPS exports, and optional Slack workflow previews.
+- MCP server, tool, and event governance.
+- Organization-scoped RLS, roles, MFA gates, same-origin checks, rate limits, encryption, and audit logging.
+
+## Access model
+
+Every verified signup creates an isolated organization. Matching email domains never grant membership. A database operator can deliberately reassign a verified, bootstrapped user as viewer, manager, or admin through the documented private procedure, which requires the user's expected current organization and is unavailable to application/API roles.
+
+Every authenticated organization can use the complete feature set. Access depends on identity, organization, role, MFA, and feature-specific security controls rather than product entitlements.
+
+## Operating model
+
+The Supabase CLI configuration in this repository is for local development and tests only. Production operators deploy the application container and an official, versioned Supabase Docker stack, then configure their own HTTPS origins and secrets.
+
+Optional Google, Microsoft, Turnstile, Redis/Upstash, Slack, and outbound destination credentials can be omitted without disabling manual governance workflows.
+
+## Technical stack
+
+Next.js 16 App Router, React 19, TypeScript, Tailwind CSS 4, Supabase Auth/Postgres/RLS, and installer-owned optional integrations.

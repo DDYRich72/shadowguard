@@ -1,0 +1,2 @@
+system_name,department,owner_name,owner_email,vendor_name,model_or_product,use_case,business_process,data_sensitivity,data_types,customer_facing,employee_facing,automated_decisions,human_review_required,training_data_use,approval_status,next_review_date,evidence_notes
+Customer Support Assistant,Support Ops,Alex Morgan,alex@example.test,OpenAI,ChatGPT Team,Draft customer support replies from ticket context,Customer support,confidential,"customer ticket context; account notes",yes,yes,no,yes,opt_out,under_review,2026-09-30,SOC 2 and DPA need review

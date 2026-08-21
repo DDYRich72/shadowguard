@@ -1,0 +1,717 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+@import "shadcn/tailwind.css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --font-sans: var(--font-geist-sans);
+  --font-serif: var(--font-instrument-serif);
+  --font-mono: var(--font-geist-mono);
+  --font-display: var(--font-geist-sans), system-ui, sans-serif;
+  --font-heading: var(--font-geist-sans), system-ui, sans-serif;
+  --color-sidebar-ring: var(--sidebar-ring);
+  --color-sidebar-border: var(--sidebar-border);
+  --color-sidebar-accent-foreground: var(--sidebar-accent-foreground);
+  --color-sidebar-accent: var(--sidebar-accent);
+  --color-sidebar-primary-foreground: var(--sidebar-primary-foreground);
+  --color-sidebar-primary: var(--sidebar-primary);
+  --color-sidebar-foreground: var(--sidebar-foreground);
+  --color-sidebar: var(--sidebar);
+  --color-chart-5: var(--chart-5);
+  --color-chart-4: var(--chart-4);
+  --color-chart-3: var(--chart-3);
+  --color-chart-2: var(--chart-2);
+  --color-chart-1: var(--chart-1);
+  --color-ring: var(--ring);
+  --color-input: var(--input);
+  --color-border: var(--border);
+  --color-destructive: var(--destructive);
+  --color-accent-foreground: var(--accent-foreground);
+  --color-accent: var(--accent);
+  --color-muted-foreground: var(--muted-foreground);
+  --color-muted: var(--muted);
+  --color-secondary-foreground: var(--secondary-foreground);
+  --color-secondary: var(--secondary);
+  --color-primary-foreground: var(--primary-foreground);
+  --color-primary: var(--primary);
+  --color-popover-foreground: var(--popover-foreground);
+  --color-popover: var(--popover);
+  --color-card-foreground: var(--card-foreground);
+  --color-card: var(--card);
+
+  /* ShadowGuard semantic tokens */
+  --color-brand: var(--brand);
+  --color-brand-foreground: var(--brand-foreground);
+  --color-focus: var(--focus);
+  --color-risk: var(--risk);
+  --color-risk-foreground: var(--risk-foreground);
+  --color-approved: var(--approved);
+  --color-approved-foreground: var(--approved-foreground);
+  --color-warning: var(--warning);
+  --color-warning-foreground: var(--warning-foreground);
+  --color-info: var(--info);
+  --color-info-foreground: var(--info-foreground);
+  --color-shell: var(--shell);
+  --color-panel: var(--panel);
+  --color-workspace: var(--workspace);
+
+  --radius-sm: calc(var(--radius) * 0.6);
+  --radius-md: calc(var(--radius) * 0.8);
+  --radius-lg: var(--radius);
+  --radius-xl: calc(var(--radius) * 1.4);
+  --radius-2xl: calc(var(--radius) * 1.8);
+  --radius-3xl: calc(var(--radius) * 2.2);
+  --radius-4xl: calc(var(--radius) * 2.6);
+}
+
+@media print {
+  @page {
+    margin: 0.45in;
+  }
+
+  html,
+  body {
+    background: #ffffff !important;
+  }
+
+  .sg-print-document {
+    color: #111111 !important;
+    font-size: 10.5pt;
+    line-height: 1.35;
+    overflow: visible !important;
+  }
+
+  .sg-print-document * {
+    box-shadow: none !important;
+  }
+
+  .sg-print-document header {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .sg-print-document p,
+  .sg-print-document li {
+    line-height: 1.4 !important;
+  }
+
+  .sg-print-document .gap-3,
+  .sg-print-document .gap-4,
+  .sg-print-document .gap-5,
+  .sg-print-document .gap-6 {
+    gap: 0.55rem !important;
+  }
+
+  .sg-print-document .space-y-3 > * + *,
+  .sg-print-document .space-y-4 > * + *,
+  .sg-print-document .space-y-5 > * + *,
+  .sg-print-document .space-y-6 > * + * {
+    margin-top: 0.55rem !important;
+  }
+
+  .sg-print-document .sg-report-section {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+    padding-top: 0.7rem !important;
+    padding-bottom: 0.7rem !important;
+  }
+
+  .sg-print-document .sg-report-section-heading {
+    break-after: avoid;
+    page-break-after: avoid;
+    gap: 0.5rem !important;
+    margin-bottom: 0.5rem !important;
+  }
+
+  .sg-print-document .sg-report-section-heading > div:first-child {
+    height: 1.5rem !important;
+    width: 1.5rem !important;
+  }
+
+  .sg-print-document .sg-report-section-heading svg {
+    height: 0.75rem !important;
+    width: 0.75rem !important;
+  }
+
+  .sg-print-document .sg-report-section h2,
+  .sg-print-document .sg-report-section h3,
+  .sg-print-document .sg-report-section h4 {
+    break-after: avoid;
+    page-break-after: avoid;
+  }
+
+  .sg-print-document .sg-print-card {
+    padding-top: 0.55rem !important;
+    padding-bottom: 0.55rem !important;
+  }
+
+  .sg-print-document .sg-print-keep {
+    break-inside: avoid;
+    page-break-inside: avoid;
+  }
+
+  .sg-print-document .sg-print-flow {
+    break-inside: auto !important;
+    page-break-inside: auto !important;
+  }
+
+  .sg-print-document pre {
+    max-height: none !important;
+    overflow: visible !important;
+    white-space: pre-wrap !important;
+  }
+}
+
+/* Light mode = warm command workspace */
+:root {
+  --background: #FCFAF7;
+  --foreground: #111111;
+  --card: #FFFFFF;
+  --card-foreground: #111111;
+  --popover: #FFFFFF;
+  --popover-foreground: #111111;
+  --primary: #111111;
+  --primary-foreground: #FFFFFF;
+  --secondary: #F3F4F6;
+  --secondary-foreground: #111111;
+  --muted: #F3F4F6;
+  --muted-foreground: #6B6B6B;
+  --accent: #F3F4F6;
+  --accent-foreground: #111111;
+  --destructive: #DC2626;
+  --border: #E5E5E5;
+  --input: #E5E5E5;
+  --ring: #F97015;
+
+  /* Semantic tokens */
+  --brand: #FE6E00;
+  --brand-foreground: #FFFFFF;
+  --focus: #F97015;
+  --risk: #DC2626;
+  --risk-foreground: #FFFFFF;
+  /* In light workspace, approved-green text is dark-on-green for AA contrast */
+  --approved: #9EFF00;
+  --approved-foreground: #0A1F00;
+  --approved-ink: #1F3B00; /* readable green text on light surfaces */
+  --warning: #F59E0B;
+  --warning-foreground: #FFFFFF;
+  --warning-ink: #92400E;  /* readable amber text on light surfaces */
+  --info: #2563EB;
+  --info-foreground: #FFFFFF;
+  --shell: #050505;
+  --panel: #111111;
+  --workspace: #FCFAF7;
+
+  --chart-1: #FE6E00;
+  --chart-2: #DC2626;
+  --chart-3: #F59E0B;
+  --chart-4: #9EFF00;
+  --chart-5: #2563EB;
+
+  --radius: 0.625rem;
+
+  --sidebar: #050505;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #FE6E00;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: rgba(255, 255, 255, 0.06);
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: #F97015;
+}
+
+/* Dark mode = full tactical shell */
+.dark {
+  --background: #050505;
+  --foreground: #F5F5F5;
+  --card: #0D0D0D;
+  --card-foreground: #F5F5F5;
+  --popover: #0D0D0D;
+  --popover-foreground: #F5F5F5;
+  --primary: #F5F5F5;
+  --primary-foreground: #050505;
+  --secondary: #161616;
+  --secondary-foreground: #F5F5F5;
+  --muted: #141414;
+  --muted-foreground: #9CA3AF;
+  --accent: #161616;
+  --accent-foreground: #F5F5F5;
+  --destructive: #DC2626;
+  --border: rgba(255, 255, 255, 0.08);
+  --input: rgba(255, 255, 255, 0.12);
+  --ring: #F97015;
+
+  --brand: #FE6E00;
+  --brand-foreground: #FFFFFF;
+  --focus: #F97015;
+  --risk: #DC2626;
+  --risk-foreground: #FFFFFF;
+  --approved: #9EFF00;
+  --approved-foreground: #0A1F00;
+  --approved-ink: #9EFF00; /* on dark, use the green itself */
+  --warning: #F59E0B;
+  --warning-foreground: #1F1300;
+  --warning-ink: #FBBF24;  /* lighter on dark */
+  --info: #2563EB;
+  --info-foreground: #FFFFFF;
+  --shell: #050505;
+  --panel: #0D0D0D;
+  --workspace: #050505;
+
+  --chart-1: #FE6E00;
+  --chart-2: #DC2626;
+  --chart-3: #F59E0B;
+  --chart-4: #9EFF00;
+  --chart-5: #2563EB;
+
+  --sidebar: #050505;
+  --sidebar-foreground: #FFFFFF;
+  --sidebar-primary: #FE6E00;
+  --sidebar-primary-foreground: #FFFFFF;
+  --sidebar-accent: rgba(255, 255, 255, 0.06);
+  --sidebar-accent-foreground: #FFFFFF;
+  --sidebar-border: rgba(255, 255, 255, 0.1);
+  --sidebar-ring: #F97015;
+}
+
+@layer base {
+  * {
+    @apply border-border outline-ring/50;
+  }
+  body {
+    @apply bg-background text-foreground;
+    font-feature-settings: "ss01", "cv11", "cv05";
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+  }
+  html {
+    @apply font-sans;
+  }
+  /* Display headings */
+  .font-display {
+    font-family: var(--font-display);
+    letter-spacing: -0.035em;
+  }
+  .font-heading {
+    font-family: var(--font-heading);
+  }
+
+  /* === Status pill primitives — labels are mandatory per a11y spec === */
+  .sg-pill {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.375rem;
+    border-radius: 9999px;
+    padding: 0.1875rem 0.625rem;
+    font-family: var(--font-mono);
+    font-size: 10px;
+    line-height: 1.1;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 500;
+    white-space: nowrap;
+  }
+  .sg-pill-risk {
+    background: var(--risk);
+    color: var(--risk-foreground);
+  }
+  .sg-pill-warning {
+    background: color-mix(in srgb, var(--warning) 18%, transparent);
+    color: var(--warning-ink);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--warning) 35%, transparent);
+  }
+  .sg-pill-approved {
+    background: var(--approved);
+    color: var(--approved-foreground);
+  }
+  .sg-pill-info {
+    background: color-mix(in srgb, var(--info) 14%, transparent);
+    color: var(--info);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--info) 30%, transparent);
+  }
+  .sg-pill-neutral {
+    background: var(--muted);
+    color: var(--muted-foreground);
+    box-shadow: inset 0 0 0 1px var(--border);
+  }
+  .sg-pill-brand {
+    background: color-mix(in srgb, var(--brand) 14%, transparent);
+    color: var(--brand);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--brand) 35%, transparent);
+  }
+  .sg-pill-live {
+    background: color-mix(in srgb, var(--approved) 16%, transparent);
+    color: var(--approved-ink);
+    box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--approved) 35%, transparent);
+  }
+
+  /* AgentGuard status surfaces: semantic color is the signal, not the body text */
+  .sg-status-surface {
+    border-color: var(--border);
+    background:
+      linear-gradient(135deg, rgba(255, 255, 255, 0.035), transparent 42%),
+      color-mix(in srgb, var(--card) 94%, transparent);
+    color: var(--foreground);
+  }
+  .sg-status-surface-green {
+    border-color: color-mix(in srgb, var(--approved) 38%, transparent);
+    box-shadow: inset 0 1px 0 color-mix(in srgb, var(--approved) 16%, transparent);
+  }
+  .sg-status-surface-amber {
+    border-color: color-mix(in srgb, var(--warning) 55%, transparent);
+    box-shadow: inset 0 1px 0 color-mix(in srgb, var(--warning) 16%, transparent);
+  }
+  .sg-status-surface-red {
+    border-color: color-mix(in srgb, var(--risk) 58%, transparent);
+    box-shadow: inset 0 1px 0 color-mix(in srgb, var(--risk) 16%, transparent);
+  }
+  .sg-status-surface-blue {
+    border-color: color-mix(in srgb, var(--info) 48%, transparent);
+    box-shadow: inset 0 1px 0 color-mix(in srgb, var(--info) 14%, transparent);
+  }
+  .sg-status-surface-slate {
+    border-color: var(--border);
+    box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.035);
+  }
+  .sg-status-surface-brand {
+    border-color: color-mix(in srgb, var(--brand) 62%, transparent);
+    background:
+      linear-gradient(135deg, color-mix(in srgb, var(--brand) 13%, transparent), transparent 46%),
+      color-mix(in srgb, var(--card) 94%, transparent);
+    box-shadow: inset 0 1px 0 color-mix(in srgb, var(--brand) 20%, transparent);
+  }
+  .sg-status-accent-green {
+    color: var(--approved-ink);
+  }
+  .sg-status-accent-amber {
+    color: var(--warning-ink);
+  }
+  .sg-status-accent-red {
+    color: #FCA5A5;
+  }
+  .sg-status-accent-blue {
+    color: #93C5FD;
+  }
+  .sg-status-accent-slate {
+    color: var(--muted-foreground);
+  }
+  .sg-status-accent-brand {
+    color: var(--brand);
+  }
+  .sg-status-badge {
+    background: color-mix(in srgb, var(--card) 88%, transparent);
+    box-shadow: inset 0 0 0 1px currentColor;
+  }
+  .sg-status-badge-green {
+    color: var(--approved-ink);
+  }
+  .sg-status-badge-amber {
+    color: var(--warning-ink);
+  }
+  .sg-status-badge-red {
+    color: #FCA5A5;
+  }
+  .sg-status-badge-blue {
+    color: #93C5FD;
+  }
+  .sg-status-badge-slate {
+    color: var(--muted-foreground);
+  }
+  .sg-status-badge-brand {
+    color: var(--brand);
+  }
+
+  /* Status dot — pairs with sg-pill on text */
+  .sg-dot {
+    display: inline-block;
+    width: 6px;
+    height: 6px;
+    border-radius: 9999px;
+    flex-shrink: 0;
+  }
+
+  /* Subtle pulse — RESERVED for live monitoring + active scan only */
+  @keyframes sg-pulse {
+    0%, 100% {
+      box-shadow: 0 0 0 0 color-mix(in srgb, var(--approved) 55%, transparent);
+    }
+    60% {
+      box-shadow: 0 0 0 6px color-mix(in srgb, var(--approved) 0%, transparent);
+    }
+  }
+  .sg-pulse {
+    animation: sg-pulse 2.4s ease-in-out infinite;
+  }
+
+  /* Mono evidence codes — for IDs, timestamps, tags */
+  .sg-mono {
+    font-family: var(--font-mono);
+    font-size: 10.5px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+  .sg-mono-sm {
+    font-family: var(--font-mono);
+    font-size: 9.5px;
+    letter-spacing: 0.22em;
+    text-transform: uppercase;
+    font-weight: 500;
+  }
+
+  /* === Dark-shell textures === */
+
+  /* Tactical grid — subtle, large cells */
+  .sg-grid {
+    background-image:
+      linear-gradient(to right, rgba(255, 255, 255, 0.045) 1px, transparent 1px),
+      linear-gradient(to bottom, rgba(255, 255, 255, 0.045) 1px, transparent 1px);
+    background-size: 72px 72px;
+    background-position: -1px -1px;
+  }
+
+  /* Scanlines — for premium console panels */
+  .sg-scanlines::before {
+    content: "";
+    position: absolute;
+    inset: 0;
+    background-image: repeating-linear-gradient(
+      to bottom,
+      rgba(255, 255, 255, 0.02) 0,
+      rgba(255, 255, 255, 0.02) 1px,
+      transparent 1px,
+      transparent 3px
+    );
+    pointer-events: none;
+    mix-blend-mode: overlay;
+    border-radius: inherit;
+  }
+
+  /* Corner brackets — premium tactical detail */
+  .sg-brackets::before,
+  .sg-brackets::after {
+    content: "";
+    position: absolute;
+    width: 10px;
+    height: 10px;
+    border: 1px solid var(--brand);
+    pointer-events: none;
+  }
+  .sg-brackets::before {
+    top: -1px;
+    left: -1px;
+    border-right: none;
+    border-bottom: none;
+  }
+  .sg-brackets::after {
+    bottom: -1px;
+    right: -1px;
+    border-left: none;
+    border-top: none;
+  }
+
+  /* Hairline divider with mono label */
+  .sg-divider {
+    display: flex;
+    align-items: center;
+    gap: 0.75rem;
+    color: var(--muted-foreground);
+  }
+  .sg-divider::before,
+  .sg-divider::after {
+    content: "";
+    flex: 1;
+    height: 1px;
+    background: var(--border);
+  }
+
+  /* Reduced motion */
+  @media (prefers-reduced-motion: reduce) {
+    .sg-pulse {
+      animation: none;
+    }
+  }
+
+  /* Selection */
+  ::selection {
+    background: color-mix(in srgb, var(--brand) 30%, transparent);
+    color: var(--foreground);
+  }
+}
+
+/* ============================================================
+   Dark-mode compatibility layer for legacy slate-* / white-* classes.
+   Many older dashboard pages were authored with hard-coded Tailwind
+   slate colors. Rather than rewrite each page, these overrides flip
+   the most common offenders when .dark is on the html element so text
+   stays readable on the dark workspace background.
+   ============================================================ */
+@layer utilities {
+  .dark .text-slate-950,
+  .dark .text-slate-900,
+  .dark .text-slate-800 {
+    color: #F5F5F5;
+  }
+  .dark .text-slate-700 {
+    color: #E5E5E5;
+  }
+  .dark .text-slate-600 {
+    color: #C4C4C4;
+  }
+  .dark .text-slate-500 {
+    color: #9CA3AF;
+  }
+  .dark .text-slate-400 {
+    color: #7A7A7A;
+  }
+  .dark .text-slate-300 {
+    color: #9CA3AF;
+  }
+
+  /* Surfaces */
+  .dark .bg-white {
+    background-color: #0D0D0D;
+  }
+  .dark .bg-slate-50 {
+    background-color: #0A0A0A;
+  }
+  .dark .bg-slate-100 {
+    background-color: #141414;
+  }
+  .dark .bg-slate-200 {
+    background-color: #1A1A1A;
+  }
+  .dark .bg-slate-900,
+  .dark .bg-slate-950 {
+    background-color: #161616;
+  }
+
+  /* Hover surfaces */
+  .dark .hover\:bg-slate-50:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+  }
+  .dark .hover\:bg-slate-100:hover {
+    background-color: rgba(255, 255, 255, 0.06);
+  }
+  .dark .hover\:bg-slate-200:hover {
+    background-color: rgba(255, 255, 255, 0.08);
+  }
+  .dark .hover\:bg-white:hover {
+    background-color: rgba(255, 255, 255, 0.04);
+  }
+
+  /* Borders */
+  .dark .border-slate-100,
+  .dark .border-slate-200 {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+  .dark .border-slate-300 {
+    border-color: rgba(255, 255, 255, 0.12);
+  }
+  .dark .divide-slate-200 > * + * {
+    border-color: rgba(255, 255, 255, 0.08);
+  }
+
+  /* Placeholder / ring helpers commonly used in inputs */
+  .dark .placeholder\:text-slate-400::placeholder {
+    color: #6B7280;
+  }
+  .dark .focus\:border-slate-500:focus {
+    border-color: var(--focus);
+  }
+  .dark .focus\:ring-slate-500:focus {
+    --tw-ring-color: var(--focus);
+  }
+
+  /* Alert / status tints — keep semantic color but darken bg, lighten text */
+  .dark .bg-red-50 {
+    background-color: color-mix(in srgb, var(--risk) 12%, transparent);
+  }
+  .dark .text-red-600,
+  .dark .text-red-700,
+  .dark .text-red-800,
+  .dark .text-red-900 {
+    color: #FCA5A5;
+  }
+  .dark .border-red-200 {
+    border-color: color-mix(in srgb, var(--risk) 30%, transparent);
+  }
+
+  .dark .bg-amber-50 {
+    background-color: color-mix(in srgb, var(--warning) 12%, transparent);
+  }
+  .dark .text-amber-600,
+  .dark .text-amber-700,
+  .dark .text-amber-800,
+  .dark .text-amber-900 {
+    color: #FBBF24;
+  }
+  .dark .border-amber-200 {
+    border-color: color-mix(in srgb, var(--warning) 30%, transparent);
+  }
+
+  .dark .bg-emerald-50 {
+    background-color: color-mix(in srgb, var(--approved) 10%, transparent);
+  }
+  .dark .text-emerald-600,
+  .dark .text-emerald-700,
+  .dark .text-emerald-900 {
+    color: #9EFF00;
+  }
+  .dark .border-emerald-200 {
+    border-color: color-mix(in srgb, var(--approved) 25%, transparent);
+  }
+
+  .dark .bg-blue-50 {
+    background-color: color-mix(in srgb, var(--info) 12%, transparent);
+  }
+  .dark .text-blue-600,
+  .dark .text-blue-700,
+  .dark .text-blue-900 {
+    color: #93C5FD;
+  }
+  .dark .border-blue-200 {
+    border-color: color-mix(in srgb, var(--info) 30%, transparent);
+  }
+
+  .dark .bg-orange-50 {
+    background-color: color-mix(in srgb, var(--brand) 12%, transparent);
+  }
+  .dark .text-orange-600,
+  .dark .text-orange-700,
+  .dark .text-orange-900 {
+    color: #FE6E00;
+  }
+
+  .dark .bg-violet-100 {
+    background-color: color-mix(in srgb, #8B5CF6 18%, transparent);
+  }
+  .dark .text-violet-600,
+  .dark .text-violet-700 {
+    color: #C4B5FD;
+  }
+
+  @media print {
+    .sg-report-section {
+      break-inside: auto !important;
+      page-break-inside: auto !important;
+      padding-top: 1rem !important;
+      padding-bottom: 1rem !important;
+    }
+
+    .sg-report-section-heading {
+      break-after: avoid;
+      page-break-after: avoid;
+      margin-bottom: 0.75rem !important;
+    }
+
+    .sg-report-section h2,
+    .sg-report-section h3 {
+      break-after: avoid;
+      page-break-after: avoid;
+    }
+  }
+}
