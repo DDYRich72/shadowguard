@@ -1,0 +1,38 @@
+version: 2
+updates:
+  # npm package updates
+  - package-ecosystem: npm
+    directory: /
+    schedule:
+      interval: weekly
+      day: monday
+    open-pull-requests-limit: 10
+    groups:
+      # Group routine patch/minor updates into one PR so we don't drown
+      # in 40 tiny PRs each week. Majors still come as individual PRs.
+      non-major:
+        update-types:
+          - patch
+          - minor
+        exclude-patterns:
+          - "react"
+          - "react-dom"
+          - "next"
+          - "@supabase/*"
+    labels:
+      - dependencies
+    commit-message:
+      prefix: deps
+      include: scope
+
+  # GitHub Actions workflow updates
+  - package-ecosystem: github-actions
+    directory: /
+    schedule:
+      interval: weekly
+    labels:
+      - dependencies
+      - ci
+    commit-message:
+      prefix: ci(deps)
+      include: scope
