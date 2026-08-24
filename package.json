@@ -19,7 +19,7 @@
     "@base-ui/react": "^1.4.1",
     "@microsoft/microsoft-graph-client": "^3.0.7",
     "@microsoft/microsoft-graph-types": "^2.43.1",
-    "@supabase/ssr": "^0.10.2",
+    "@supabase/ssr": "^0.12.4",
     "@supabase/supabase-js": "^2.104.0",
     "@upstash/redis": "^1.37.0",
     "class-variance-authority": "^0.7.1",
